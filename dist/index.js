@@ -119,9 +119,17 @@ async function verify(token, publicKey) {
     errors.push("Invalid signature: the token signature does not match the public key.");
     return { valid: false, errors };
   }
+  const claims = payload;
+  const nowSeconds = Math.floor(Date.now() / 1e3);
+  if (typeof claims.exp === "number" && nowSeconds >= claims.exp) {
+    errors.push(`Token is expired: exp (${claims.exp}) is in the past (current time: ${nowSeconds}).`);
+  }
+  if (errors.length > 0) {
+    return { valid: false, errors };
+  }
   return {
     valid: true,
-    payload,
+    payload: claims,
     errors: []
   };
 }

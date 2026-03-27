@@ -206,7 +206,7 @@
         "When verify() is called with the correct public key",
         "Then the result has valid === true and errors is an empty array"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F017",
