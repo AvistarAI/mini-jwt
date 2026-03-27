@@ -63,7 +63,7 @@
         "When that encoded string is passed to base64UrlDecode",
         "Then the output Uint8Array is byte-for-byte identical to the original input"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F006",
