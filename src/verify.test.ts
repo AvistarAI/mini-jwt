@@ -108,6 +108,25 @@ describe('verify()', () => {
     expect(result.errors[0]).toMatch(/signature/i);
   });
 
+  // ── Claims validation ──────────────────────────────────────────────────────
+
+  it('returns valid=false with an expired-token error when exp is 60 seconds in the past', async () => {
+    const now = Math.floor(Date.now() / 1000);
+    const token = await sign({ sub: 'expired-agent', exp: now - 60 }, keyPair.privateKey);
+    const result = await verify(token, keyPair.publicKey);
+    expect(result.valid).toBe(false);
+    expect(result.errors.length).toBeGreaterThan(0);
+    expect(result.errors.some((e) => /expired/i.test(e))).toBe(true);
+  });
+
+  it('returns valid=true when exp is 3600 seconds in the future', async () => {
+    const now = Math.floor(Date.now() / 1000);
+    const token = await sign({ sub: 'future-agent', exp: now + 3600 }, keyPair.privateKey);
+    const result = await verify(token, keyPair.publicKey);
+    expect(result.valid).toBe(true);
+    expect(result.errors).toHaveLength(0);
+  });
+
   // ── Structural / malformed tokens ─────────────────────────────────────────
 
   it('returns valid=false when the token has only two segments', async () => {

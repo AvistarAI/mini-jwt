@@ -112,10 +112,23 @@ export async function verify(token: string, publicKey: CryptoKey): Promise<Verif
     return { valid: false, errors };
   }
 
-  // ── 5. All checks passed ──────────────────────────────────────────────────
+  // ── 5. Claims validation ───────────────────────────────────────────────────
+  const claims = payload as JWTPayload;
+  const nowSeconds = Math.floor(Date.now() / 1000);
+
+  // exp — expiration time
+  if (typeof claims.exp === 'number' && nowSeconds >= claims.exp) {
+    errors.push(`Token is expired: exp (${claims.exp}) is in the past (current time: ${nowSeconds}).`);
+  }
+
+  if (errors.length > 0) {
+    return { valid: false, errors };
+  }
+
+  // ── 6. All checks passed ──────────────────────────────────────────────────
   return {
     valid: true,
-    payload: payload as JWTPayload,
+    payload: claims,
     errors: [],
   };
 }
