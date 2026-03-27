@@ -154,7 +154,7 @@
         "When sign() is called and the second segment is decoded",
         "Then the parsed object contains all supplied claims with their original values"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F013",
