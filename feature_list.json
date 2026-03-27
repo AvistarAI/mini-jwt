@@ -167,7 +167,7 @@
         "When sign() is called",
         "Then it resolves with a three-segment JWT whose decoded payload contains only the auto-injected iat"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F014",
