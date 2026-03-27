@@ -136,6 +136,14 @@ describe('verify()', () => {
     expect(result.errors.some((e) => /not yet valid/i.test(e))).toBe(true);
   });
 
+  it('F018: returns valid=true and errors is empty when nbf is 60 seconds in the past', async () => {
+    const now = Math.floor(Date.now() / 1000);
+    const token = await sign({ sub: 'past-nbf-agent', nbf: now - 60 }, keyPair.privateKey);
+    const result = await verify(token, keyPair.publicKey);
+    expect(result.valid).toBe(true);
+    expect(result.errors).toHaveLength(0);
+  });
+
   // ── Structural / malformed tokens ─────────────────────────────────────────
 
   it('returns valid=false when the token has only two segments', async () => {
