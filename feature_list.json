@@ -479,7 +479,7 @@
         "When `npx vitest run tests/edge-cases.test.ts` is executed",
         "Then all tests in that file pass with exit code 0"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F038",
