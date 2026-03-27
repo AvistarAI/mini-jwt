@@ -492,7 +492,7 @@
         "When `npx vitest run` is executed from the output/ directory",
         "Then all test suites pass with exit code 0 and zero failing tests"
       ],
-      "passes": false
+      "passes": true
     }
   ]
 }
