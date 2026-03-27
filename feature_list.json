@@ -141,7 +141,7 @@
         "When sign() is called",
         "Then the decoded payload's iat equals the original caller-supplied value unchanged"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F012",
