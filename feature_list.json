@@ -180,7 +180,7 @@
         "When verify() is called with no options",
         "Then it resolves with { valid: true, payload: <decoded claims>, errors: [] }"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F015",
