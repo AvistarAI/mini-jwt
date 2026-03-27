@@ -160,6 +160,13 @@ describe('verify()', () => {
     expect(result.errors.some((e) => /audience/i.test(e))).toBe(true);
   });
 
+  it('F022: returns valid=true when aud claim is present but no options.audience is provided (audience not enforced)', async () => {
+    const token = await sign({ sub: 'agent-z', aud: 'some-service' }, keyPair.privateKey);
+    const result = await verify(token, keyPair.publicKey);
+    expect(result.valid).toBe(true);
+    expect(result.errors).toHaveLength(0);
+  });
+
   it('F018: returns valid=true and errors is empty when nbf is 60 seconds in the past', async () => {
     const now = Math.floor(Date.now() / 1000);
     const token = await sign({ sub: 'past-nbf-agent', nbf: now - 60 }, keyPair.privateKey);
