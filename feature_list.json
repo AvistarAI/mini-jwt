@@ -89,7 +89,7 @@
         "When the key usages are inspected",
         "Then privateKey.usages includes 'sign' and publicKey.usages includes 'verify'"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F008",
