@@ -7,6 +7,18 @@
 import { base64UrlDecode } from './base64url.js';
 import type { JWTPayload, VerifyResult } from './types.js';
 
+/**
+ * Options for the {@link verify} function.
+ */
+export interface VerifyOptions {
+  /**
+   * Expected audience string. When provided, the token's `aud` claim must
+   * include this value — either as an exact match (string) or as a member of
+   * the audience array.
+   */
+  audience?: string;
+}
+
 /** Text encoder singleton — reused to avoid repeated allocations. */
 const encoder = new TextEncoder();
 
@@ -31,6 +43,7 @@ const VERIFY_ALGORITHM: EcdsaParams = {
  * @param token     - A compact JWT string in the format `header.payload.signature`.
  * @param publicKey - An ECDSA P-256 `CryptoKey` with `verify` usage, e.g. from
  *   {@link generateKeyPair}.
+ * @param options   - Optional verification options (e.g. expected audience).
  * @returns A {@link VerifyResult} indicating whether the token is valid.
  *
  * @example
@@ -42,7 +55,11 @@ const VERIFY_ALGORITHM: EcdsaParams = {
  * // result.payload?.sub === 'agent-1'
  * ```
  */
-export async function verify(token: string, publicKey: CryptoKey): Promise<VerifyResult> {
+export async function verify(
+  token: string,
+  publicKey: CryptoKey,
+  options?: VerifyOptions,
+): Promise<VerifyResult> {
   const errors: string[] = [];
 
   // ── 1. Structural validation ──────────────────────────────────────────────
@@ -124,6 +141,21 @@ export async function verify(token: string, publicKey: CryptoKey): Promise<Verif
   // nbf — not before time
   if (typeof claims.nbf === 'number' && nowSeconds < claims.nbf) {
     errors.push(`Token is not yet valid: nbf (${claims.nbf}) is in the future (current time: ${nowSeconds}).`);
+  }
+
+  // aud — audience validation (only when options.audience is provided)
+  if (options?.audience !== undefined) {
+    const expectedAudience = options.audience;
+    const tokenAud = claims.aud;
+    const audMatches =
+      (typeof tokenAud === 'string' && tokenAud === expectedAudience) ||
+      (Array.isArray(tokenAud) && tokenAud.includes(expectedAudience));
+
+    if (!audMatches) {
+      errors.push(
+        `Audience mismatch: token aud (${JSON.stringify(tokenAud)}) does not include expected audience '${expectedAudience}'.`,
+      );
+    }
   }
 
   if (errors.length > 0) {
