@@ -76,7 +76,7 @@
         "When generateKeyPair() is called",
         "Then it resolves with an object containing a CryptoKey publicKey and a CryptoKey privateKey, both with algorithm.name === 'ECDSA' and namedCurve === 'P-256'"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F007",
