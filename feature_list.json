@@ -11,7 +11,7 @@
         "When the project is initialized with package.json (name: mini-jwt, type: module), tsconfig.json (strict mode, ESM), vitest.config.ts, and tsup.config.ts",
         "Then `npm install` succeeds, `npx tsc --noEmit` exits 0, and the directory structure matches the spec"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F002",
