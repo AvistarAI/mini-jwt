@@ -414,7 +414,7 @@
         "When verify() is called",
         "Then it resolves (does not reject) with valid === false and an appropriate error message"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F033",
