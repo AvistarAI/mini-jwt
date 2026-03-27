@@ -24,7 +24,7 @@
         "When a TypeScript file imports JWTHeader, JWTPayload, VerifyResult, and KeyPair from './types'",
         "Then the compiler accepts assignments matching each interface shape without errors"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F003",
