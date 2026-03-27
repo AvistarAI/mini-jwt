@@ -106,6 +106,26 @@ describe('sign()', () => {
     expect(Object.keys(header).sort()).toEqual(['alg', 'typ']);
   });
 
+  it('encodes the full payload including all standard and custom claims', async () => {
+    // F012: sub, iss, exp, and a custom 'role' claim must all be preserved
+    const exp = Math.floor(Date.now() / 1000) + 3600;
+    const inputPayload: JWTPayload = {
+      sub: 'agent-007',
+      iss: 'auth-service',
+      exp,
+      role: 'admin',
+    };
+    const token = await sign(inputPayload, keyPair.privateKey);
+    const parts = token.split('.');
+    const payloadBytes = base64UrlDecode(parts[1] as string);
+    const decoded = JSON.parse(new TextDecoder().decode(payloadBytes)) as JWTPayload;
+
+    expect(decoded.sub).toBe('agent-007');
+    expect(decoded.iss).toBe('auth-service');
+    expect(decoded.exp).toBe(exp);
+    expect(decoded['role']).toBe('admin');
+  });
+
   it('handles an empty payload object', async () => {
     const token = await sign({}, keyPair.privateKey);
     const parts = token.split('.');
