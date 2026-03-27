@@ -219,7 +219,7 @@
         "When verify() is called with the correct public key",
         "Then the result has valid === false and errors contains a message indicating the token is not yet valid"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F018",
