@@ -245,7 +245,7 @@
         "When verify() resolves",
         "Then the result has valid === false and errors contains an audience mismatch message"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F020",
