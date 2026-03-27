@@ -138,6 +138,13 @@ describe('verify()', () => {
 
   // ── Audience validation ────────────────────────────────────────────────────
 
+  it('F020: returns valid=true and errors is empty when aud matches options.audience (single string)', async () => {
+    const token = await sign({ sub: 'agent-x', aud: 'my-api' }, keyPair.privateKey);
+    const result = await verify(token, keyPair.publicKey, { audience: 'my-api' });
+    expect(result.valid).toBe(true);
+    expect(result.errors).toHaveLength(0);
+  });
+
   it('F019: returns valid=false with audience mismatch error when aud does not match options.audience', async () => {
     const token = await sign({ sub: 'agent-a', aud: 'service-a' }, keyPair.privateKey);
     const result = await verify(token, keyPair.publicKey, { audience: 'service-b' });
