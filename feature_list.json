@@ -323,7 +323,7 @@
         "When verify() is called with the public key from key pair B",
         "Then the result has valid === false due to signature mismatch"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F026",
