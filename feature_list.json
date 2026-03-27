@@ -193,7 +193,7 @@
         "When verify() is called with the correct public key",
         "Then the result has valid === false and errors contains a message indicating the token is expired"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F016",
