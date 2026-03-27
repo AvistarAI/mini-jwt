@@ -427,7 +427,7 @@
         "When a consumer imports from 'mini-jwt'",
         "Then generateKeyPair, sign, verify, decode, base64UrlEncode, and base64UrlDecode are all importable named exports"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F034",
