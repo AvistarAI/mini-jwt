@@ -128,7 +128,7 @@
         "When sign() is called",
         "Then the decoded payload contains an iat value approximately equal to Math.floor(Date.now() / 1000)"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F011",
