@@ -167,6 +167,19 @@ describe('verify()', () => {
     expect(result.errors).toHaveLength(0);
   });
 
+  it('F026: returns valid=false with errors for both expired exp and future nbf', async () => {
+    const now = Math.floor(Date.now() / 1000);
+    const token = await sign(
+      { sub: 'multi-error-agent', exp: now - 60, nbf: now + 60 },
+      keyPair.privateKey,
+    );
+    const result = await verify(token, keyPair.publicKey);
+    expect(result.valid).toBe(false);
+    expect(result.errors.length).toBeGreaterThanOrEqual(2);
+    expect(result.errors.some((e) => /expired/i.test(e))).toBe(true);
+    expect(result.errors.some((e) => /not yet valid/i.test(e))).toBe(true);
+  });
+
   it('F018: returns valid=true and errors is empty when nbf is 60 seconds in the past', async () => {
     const now = Math.floor(Date.now() / 1000);
     const token = await sign({ sub: 'past-nbf-agent', nbf: now - 60 }, keyPair.privateKey);
