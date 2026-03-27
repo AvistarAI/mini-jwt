@@ -145,6 +145,13 @@ describe('verify()', () => {
     expect(result.errors).toHaveLength(0);
   });
 
+  it('F021: returns valid=true and errors is empty when aud is an array containing options.audience', async () => {
+    const token = await sign({ sub: 'agent-y', aud: ['my-api', 'other-service'] }, keyPair.privateKey);
+    const result = await verify(token, keyPair.publicKey, { audience: 'my-api' });
+    expect(result.valid).toBe(true);
+    expect(result.errors).toHaveLength(0);
+  });
+
   it('F019: returns valid=false with audience mismatch error when aud does not match options.audience', async () => {
     const token = await sign({ sub: 'agent-a', aud: 'service-a' }, keyPair.privateKey);
     const result = await verify(token, keyPair.publicKey, { audience: 'service-b' });
