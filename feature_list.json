@@ -362,7 +362,7 @@
         "When decode() is called",
         "Then it returns the payload object including the expired exp value without throwing"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F029",

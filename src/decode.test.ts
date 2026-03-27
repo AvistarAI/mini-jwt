@@ -59,6 +59,16 @@ describe('decode()', () => {
     expect(() => decode(`header.${arrayPayload}.sig`)).toThrow();
   });
 
+  it('decodes an expired token without throwing (F028)', async () => {
+    const pastExp = Math.floor(Date.now() / 1000) - 3600; // 1 hour in the past
+    const expiredPayload: JWTPayload = { sub: 'agent-expired', iss: 'test-issuer', iat: pastExp - 60, exp: pastExp };
+    const token = await sign(expiredPayload, keyPair.privateKey);
+    let decoded: JWTPayload | undefined;
+    expect(() => { decoded = decode(token); }).not.toThrow();
+    expect(decoded!.exp).toBe(pastExp);
+    expect(decoded!.sub).toBe('agent-expired');
+  });
+
   it('decodes a token with all standard claims intact', async () => {
     const now = Math.floor(Date.now() / 1000);
     const inputPayload: JWTPayload = {
