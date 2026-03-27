@@ -50,7 +50,7 @@
         "When base64UrlDecode is called with that string",
         "Then it returns a Uint8Array whose contents exactly match the original pre-encoded bytes"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F005",
