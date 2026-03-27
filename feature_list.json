@@ -284,7 +284,7 @@
         "When verify() resolves",
         "Then the result has valid === true (audience is not enforced)"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F023",
