@@ -115,7 +115,7 @@
         "When the first segment is base64url-decoded and JSON-parsed",
         "Then the resulting object has alg === 'ES256' and typ === 'JWT'"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F010",
