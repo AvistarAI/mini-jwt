@@ -401,7 +401,7 @@
         "When decode() is called",
         "Then it throws an error indicating the payload could not be parsed"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F032",
