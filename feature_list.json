@@ -336,7 +336,7 @@
         "When verify() is called with the correct public key",
         "Then the result has valid === false and errors contains entries for both the expiry and not-before failures"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F027",
