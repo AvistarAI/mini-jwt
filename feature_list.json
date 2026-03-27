@@ -310,7 +310,7 @@
         "When verify() is called with the original public key",
         "Then the result has valid === false and errors contains a signature verification failure message"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F025",
