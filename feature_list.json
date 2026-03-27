@@ -375,7 +375,7 @@
         "When decode() is called",
         "Then it throws an error indicating the token is malformed"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F030",
