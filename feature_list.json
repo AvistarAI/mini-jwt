@@ -258,7 +258,7 @@
         "When verify() resolves",
         "Then the result has valid === true and errors is empty"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F021",
