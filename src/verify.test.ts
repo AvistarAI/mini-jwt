@@ -127,6 +127,15 @@ describe('verify()', () => {
     expect(result.errors).toHaveLength(0);
   });
 
+  it('returns valid=false with a not-yet-valid error when nbf is 60 seconds in the future', async () => {
+    const now = Math.floor(Date.now() / 1000);
+    const token = await sign({ sub: 'future-nbf-agent', nbf: now + 60 }, keyPair.privateKey);
+    const result = await verify(token, keyPair.publicKey);
+    expect(result.valid).toBe(false);
+    expect(result.errors.length).toBeGreaterThan(0);
+    expect(result.errors.some((e) => /not yet valid/i.test(e))).toBe(true);
+  });
+
   // ── Structural / malformed tokens ─────────────────────────────────────────
 
   it('returns valid=false when the token has only two segments', async () => {

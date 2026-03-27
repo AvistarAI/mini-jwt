@@ -121,6 +121,11 @@ export async function verify(token: string, publicKey: CryptoKey): Promise<Verif
     errors.push(`Token is expired: exp (${claims.exp}) is in the past (current time: ${nowSeconds}).`);
   }
 
+  // nbf — not before time
+  if (typeof claims.nbf === 'number' && nowSeconds < claims.nbf) {
+    errors.push(`Token is not yet valid: nbf (${claims.nbf}) is in the future (current time: ${nowSeconds}).`);
+  }
+
   if (errors.length > 0) {
     return { valid: false, errors };
   }
