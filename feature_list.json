@@ -37,7 +37,7 @@
         "When base64UrlEncode is called with that array",
         "Then it returns a string using base64url alphabet (no +, /, or = padding characters)"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": "F004",
