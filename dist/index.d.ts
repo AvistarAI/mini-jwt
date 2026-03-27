@@ -124,6 +124,17 @@ declare function sign(payload: JWTPayload, privateKey: CryptoKey): Promise<strin
  */
 
 /**
+ * Options for the {@link verify} function.
+ */
+interface VerifyOptions {
+    /**
+     * Expected audience string. When provided, the token's `aud` claim must
+     * include this value — either as an exact match (string) or as a member of
+     * the audience array.
+     */
+    audience?: string;
+}
+/**
  * Verifies the ECDSA P-256 signature of a compact JWT string.
  *
  * The function splits the token into its three dot-separated segments, re-encodes
@@ -138,6 +149,7 @@ declare function sign(payload: JWTPayload, privateKey: CryptoKey): Promise<strin
  * @param token     - A compact JWT string in the format `header.payload.signature`.
  * @param publicKey - An ECDSA P-256 `CryptoKey` with `verify` usage, e.g. from
  *   {@link generateKeyPair}.
+ * @param options   - Optional verification options (e.g. expected audience).
  * @returns A {@link VerifyResult} indicating whether the token is valid.
  *
  * @example
@@ -149,7 +161,7 @@ declare function sign(payload: JWTPayload, privateKey: CryptoKey): Promise<strin
  * // result.payload?.sub === 'agent-1'
  * ```
  */
-declare function verify(token: string, publicKey: CryptoKey): Promise<VerifyResult>;
+declare function verify(token: string, publicKey: CryptoKey, options?: VerifyOptions): Promise<VerifyResult>;
 
 /**
  * JWT decode utility — extracts the payload without verifying the signature.

@@ -65,7 +65,7 @@ var VERIFY_ALGORITHM = {
   name: "ECDSA",
   hash: { name: "SHA-256" }
 };
-async function verify(token, publicKey) {
+async function verify(token, publicKey, options) {
   const errors = [];
   const parts = token.split(".");
   if (parts.length !== 3) {
@@ -123,6 +123,19 @@ async function verify(token, publicKey) {
   const nowSeconds = Math.floor(Date.now() / 1e3);
   if (typeof claims.exp === "number" && nowSeconds >= claims.exp) {
     errors.push(`Token is expired: exp (${claims.exp}) is in the past (current time: ${nowSeconds}).`);
+  }
+  if (typeof claims.nbf === "number" && nowSeconds < claims.nbf) {
+    errors.push(`Token is not yet valid: nbf (${claims.nbf}) is in the future (current time: ${nowSeconds}).`);
+  }
+  if (options?.audience !== void 0) {
+    const expectedAudience = options.audience;
+    const tokenAud = claims.aud;
+    const audMatches = typeof tokenAud === "string" && tokenAud === expectedAudience || Array.isArray(tokenAud) && tokenAud.includes(expectedAudience);
+    if (!audMatches) {
+      errors.push(
+        `Audience mismatch: token aud (${JSON.stringify(tokenAud)}) does not include expected audience '${expectedAudience}'.`
+      );
+    }
   }
   if (errors.length > 0) {
     return { valid: false, errors };
