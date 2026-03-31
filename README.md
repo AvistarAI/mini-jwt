@@ -126,15 +126,15 @@ interface KeyPair {
       Tests  76 passed (76)
 
  % Coverage report from v8
---------------|---------|----------|---------|---------|
-File          | % Stmts | % Branch | % Funcs | % Lines |
---------------|---------|----------|---------|---------|
-All files     |   96.15 |    96.07 |     100 |   96.15 |
- base64url.ts |     100 |      100 |     100 |     100 |
- decode.ts    |     100 |      100 |     100 |     100 |
- keys.ts      |     100 |      100 |     100 |     100 |
- sign.ts      |     100 |      100 |     100 |     100 |
- verify.ts    |   92.47 |    93.54 |     100 |   92.47 |
+|--------------|---------|----------|---------|---------|
+|File          | % Stmts | % Branch | % Funcs | % Lines |
+|--------------|---------|----------|---------|---------|
+|All files     |   96.15 |    96.07 |     100 |   96.15 |
+| base64url.ts |     100 |      100 |     100 |     100 |
+| decode.ts    |     100 |      100 |     100 |     100 |
+| keys.ts      |     100 |      100 |     100 |     100 |
+| sign.ts      |     100 |      100 |     100 |     100 |
+| verify.ts    |   92.47 |    93.54 |     100 |   92.47 |
 ```
 
 ---
@@ -176,7 +176,7 @@ Setup and simple features skip the evaluator (validators are sufficient), while 
 
 ### Source
 
-The harness source code is at [shawnpetros/long-running-harness](https://github.com/shawnpetros/long-running-harness).
+The harness source code is at [shawnpetros/salazar](https://github.com/shawnpetros/salazar).
 
 ## License
 
